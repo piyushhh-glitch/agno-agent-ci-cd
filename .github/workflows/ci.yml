@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      
+      # CONTINOUS INTEGRATION -------------->
+      
       - name: Checkout code 
         uses: actions/checkout@v4
 
@@ -34,6 +37,8 @@ jobs:
         with: 
           name: test-report
           path: report.html
+
+      # CONTINOUS DELIVERY -------->
 
       - name: Build Docker image
         run: docker build -t agno-agent-ci-cd .
