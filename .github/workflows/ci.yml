@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code 
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
       - name: Setup Python 
         uses: actions/setup-python@v5
@@ -27,6 +27,9 @@ jobs:
         run: pip install pytest
 
       - name: Run tests
+        env: 
+          GROQ_API_KEY: ${{secrets.GROQ_API_KEY}}
+          GOOGLE_API_KEY: ${{secrets.GOOGLE_API_KEY}}
         run: python -m pytest
 
 
