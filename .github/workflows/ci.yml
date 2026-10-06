@@ -35,5 +35,8 @@ jobs:
           name: test-report
           path: report.html
 
+      - name: Build Docker image
+        run: docker build -t agno-agent-ci-cd .
+
 
 
