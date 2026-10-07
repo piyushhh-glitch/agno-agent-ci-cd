@@ -53,7 +53,23 @@ jobs:
         run: |
           docker tag agno-agent-ci-cd ${{ secrets.DOCKERHUB_USERNAME }}/agno-agent-ci-cd:latest
 
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/agno-agent-ci-cd:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/agno-agent-ci-cd:
+          
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull piyushthakur16/agno-agent-ci-cd:latest
+            docker stop agno-agent || true
+            docker rm agno-agent || true
+            docker run -d \
+              --name agno-agent \
+              -e GROQ_API_KEY='${{ secrets.GROQ_API_KEY }}' \
+              -e GOOGLE_API_KEY='${{ secrets.GOOGLE_API_KEY }}' \
+              piyushthakur16/agno-agent-ci-cd:latest
 
 
 
