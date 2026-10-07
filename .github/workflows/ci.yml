@@ -53,7 +53,7 @@ jobs:
         run: |
           docker tag agno-agent-ci-cd ${{ secrets.DOCKERHUB_USERNAME }}/agno-agent-ci-cd:latest
 
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/agno-agent-ci-cd:
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/agno-agent-ci-cd:latest
           
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.2.2
